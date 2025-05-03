@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Elemento donde se mostrarán los episodios -->
+    <div id="app"></div>
+    <div id="personajes"></div>
+
+    <script>
+        let RickandMorty = [];
+        
+        async function Episodios() {
+            const res = await fetch('https://rickandmortyapi.com/api/episode');
+            const data = await res.json();
+            RickandMorty = data.results;
+
+            for (let i = 0; i < RickandMorty.length; i++) {
+                console.log(RickandMorty[i].name);
+                document.getElementById("app").innerHTML += "<div><p>" + RickandMorty[i].name + "</p></div>"
+            }
+        }
+        Episodios();
+
+        let RickandMortyPersonajes = [];
+        
+        async function personajes() {
+          const res = await fetch('https://rickandmortyapi.com/api/character');
+          const data = await res.json();
+          RickandMortyPersonajes = data.results;
+    
+          for (let i = 0; i < RickandMortyPersonajes.length; i++) {
+            const personaje = RickandMortyPersonajes[i];
+            console.log(personaje.name);
+            document.getElementById("personajes").innerHTML += `<img src="${personaje.image}" alt="${personaje.name}"><p>${personaje.name}</p>`;
+          }
+        }
+    
+        personajes();
+    </script>
+</body>
+</html>
